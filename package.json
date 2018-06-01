@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "allan chang",
+  "license": "MIT",
+  "engines" : {
+    "node":"9.10.1",
+    "yarn": "1.6.0"
+  },
+  "scripts":{
+    "start":"node index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
