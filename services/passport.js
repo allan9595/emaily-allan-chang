@@ -20,7 +20,8 @@ passport.use(
   new GoogleStrategy({
   clientID: keys.googleClientID,
   clientSecret: keys.googleClientSecret,
-  callbackURL: '/auth/google/callback' //this is the url that include "code" sent from Google
+  callbackURL: '/auth/google/callback', //this is the url that include "code" sent from Google
+  proxy: true // trust all the proxy server, in here we trust heroku proxy server
 },
   (accessToken, refreshToken, profile, done) => {//existingUser respresents model instance
     User.findOne({ googleId: profile.id })
