@@ -23,17 +23,13 @@ passport.use(
   callbackURL: '/auth/google/callback', //this is the url that include "code" sent from Google
   proxy: true // trust all the proxy server, in here we trust heroku proxy server
 },
-  (accessToken, refreshToken, profile, done) => {//existingUser respresents model instance
-    User.findOne({ googleId: profile.id })
-      .then((existingUser) => {
-        if(existingUser){
-          done(null, existingUser);
-            //if the user exist, we doing nothing
-        }else {
-          new User({googleId: profile.id}).save()
-            .then(user => done(null, user));//create a model instance, Asyc promise
-        }
-      })
+  async (accessToken, refreshToken, profile, done) => {//existingUser respresents model instance
+    const existingUser = await User.findOne({ googleId: profile.id })
+    if(existingUser){
+      return done(null, existingUser);//if the user exist, we doing nothing
+    }
+    const user = await new User({googleId: profile.id}).save();
+    done(null, user);//create a model instance, Asyc promise
 
   })
 );
