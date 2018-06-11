@@ -12,7 +12,8 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "client": "yarn --cwd client run start",
-    "dev": "concurrently \"yarn run server\" \"yarn run client\""
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
+    "heroku-postbuild":"YARN_CONFIG_PRODUCTION=false yarn add --cwd client && yarn build --cwd client"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
