@@ -1,16 +1,16 @@
 //SurveyNew shows SurveyForm and SurveyFormReview
 import _ from 'lodash';
-import React , { Component } from 'react';
+import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
+import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
-import { Link } from 'react-router-dom';
 import formFields from './formFields';
 
 class SurveyForm extends Component {
   renderFields() {
     return _.map(formFields, ({ label, name }) => {
-      return(
+      return (
         <Field
           key={name}
           component={SurveyField}
@@ -21,6 +21,7 @@ class SurveyForm extends Component {
       );
     });
   }
+
   render() {
     return (
       <div>
@@ -29,7 +30,7 @@ class SurveyForm extends Component {
           <Link to="/surveys" className="red btn-flat white-text">
             Cancel
           </Link>
-          <button type="sumbit" className="teal btn-flat right white-text">
+          <button type="submit" className="teal btn-flat right white-text">
             Next
             <i className="material-icons right">done</i>
           </button>
@@ -39,15 +40,16 @@ class SurveyForm extends Component {
   }
 }
 
-function validate(values){
+function validate(values) {
   const errors = {};
-  errors.emails = validateEmails(values.emails || '');
-  _.each(formFields, ({ name, noValueError }) => {
-    if(!values[name]){
-      errors[name]= noValueError;
+
+  errors.recipients = validateEmails(values.recipients || '');
+
+  _.each(formFields, ({ name }) => {
+    if (!values[name]) {
+      errors[name] = 'You must provide a value';
     }
   });
-
 
   return errors;
 }
@@ -55,5 +57,5 @@ function validate(values){
 export default reduxForm({
   validate,
   form: 'surveyForm',
-  destoryOnUnmount: false
+  destroyOnUnmount: false
 })(SurveyForm);

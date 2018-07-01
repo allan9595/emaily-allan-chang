@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import formFields from './formFields';
 const SurveyFormReview = ({ onCancel, formValues }) => {
+
   const reviewFields = _.map(formFields, ({ name, label }) =>{
     return (
       <div key={name}>
@@ -28,6 +29,7 @@ const SurveyFormReview = ({ onCancel, formValues }) => {
 };
 
 function mapStateToProps(state) {
-  return { formValues: state.form.surveyForm.values };
+
+  return { formValues:state.form.surveyForm.values }
 }
 export default connect(mapStateToProps)(SurveyFormReview);
